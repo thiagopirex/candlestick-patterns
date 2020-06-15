@@ -183,3 +183,6 @@ modules.xml
 *.ipr
 
 # End of https://www.gitignore.io/api/pycharm+iml
+/.project
+/.pydevproject
+/.gitignore.swp

@@ -9,6 +9,7 @@ class MorningStar(CandlestickFinder):
         candle = self.data.iloc[idx]
         prev_candle = self.data.iloc[idx + 1 * self.multi_coeff]
         b_prev_candle = self.data.iloc[idx + 2 * self.multi_coeff]
+        c_prev_candle = self.data.iloc[idx + 3 * self.multi_coeff]
 
         close = candle[self.close_column]
         open = candle[self.open_column]
@@ -24,17 +25,13 @@ class MorningStar(CandlestickFinder):
         b_prev_open = b_prev_candle[self.open_column]
         b_prev_high = b_prev_candle[self.high_column]
         b_prev_low = b_prev_candle[self.low_column]
-
-        # return (b_prev_close < b_prev_open and
-        #         abs(b_prev_close - b_prev_open) / (b_prev_high - b_prev_low) >= 0.7 and
-        #         0.3 > abs(prev_close - prev_open) / (prev_high - prev_low) >= 0.1 and
-        #         close > open and
-        #         abs(close - open) / (high - low) >= 0.7 and
-        #         b_prev_close > prev_close and
-        #         b_prev_close > prev_open and
-        #         prev_close < open and
-        #         prev_open < open and
-        #         close > b_prev_close)
+        
+        c_prev_close = c_prev_candle[self.close_column]
+        c_prev_open = c_prev_candle[self.open_column]
+        c_prev_high = c_prev_candle[self.high_column]
+        c_prev_low = c_prev_candle[self.low_column]
 
         return (max(prev_open, prev_close) < b_prev_close < b_prev_open and
-                close > open > max(prev_open, prev_close))
+                close > open > max(prev_open, prev_close) and 
+                c_prev_close < c_prev_open and 
+                b_prev_open < c_prev_close)

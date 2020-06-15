@@ -58,7 +58,6 @@ def bearish_harami(candles_df,
     bear_harami = __create_object('BearishHarami', target)
     return bear_harami.has_pattern(candles_df, ohlc, is_reversed)
 
-
 def bullish_harami(candles_df,
                    ohlc=__default_ohlc,
                    is_reversed=False,
@@ -66,13 +65,19 @@ def bullish_harami(candles_df,
     bull_harami = __create_object('BullishHarami', target)
     return bull_harami.has_pattern(candles_df, ohlc, is_reversed)
 
-
 def gravestone_doji(candles_df,
                    ohlc=__default_ohlc,
                    is_reversed=False,
                    target=None):
     gs_doji = __create_object('GravestoneDoji', target)
     return gs_doji.has_pattern(candles_df, ohlc, is_reversed)
+
+def evening_star(candles_df,
+                   ohlc=__default_ohlc,
+                   is_reversed=False,
+                   target=None):
+    evening_star = __create_object('EveningStar', target)
+    return evening_star.has_pattern(candles_df, ohlc, is_reversed)
 
 
 def dark_cloud_cover(candles_df,

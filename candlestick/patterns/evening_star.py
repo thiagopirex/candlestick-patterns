@@ -9,6 +9,7 @@ class EveningStar(CandlestickFinder):
         candle = self.data.iloc[idx]
         prev_candle = self.data.iloc[idx + 1 * self.multi_coeff]
         b_prev_candle = self.data.iloc[idx + 2 * self.multi_coeff]
+        c_prev_candle = self.data.iloc[idx + 3 * self.multi_coeff]
 
         close = candle[self.close_column]
         open = candle[self.open_column]
@@ -24,6 +25,11 @@ class EveningStar(CandlestickFinder):
         b_prev_open = b_prev_candle[self.open_column]
         b_prev_high = b_prev_candle[self.high_column]
         b_prev_low = b_prev_candle[self.low_column]
+        
+        c_prev_close = c_prev_candle[self.close_column]
+        c_prev_open = c_prev_candle[self.open_column]
+        c_prev_high = c_prev_candle[self.high_column]
+        c_prev_low = c_prev_candle[self.low_column]
 
         # return (b_prev_close > b_prev_open and
         #         abs(b_prev_close - b_prev_open) / (b_prev_high - b_prev_low) >= 0.7 and
@@ -37,4 +43,6 @@ class EveningStar(CandlestickFinder):
         #         close < b_prev_close)
 
         return (min(prev_open, prev_close) > b_prev_close > b_prev_open and
-                close < open < min(prev_open, prev_close))
+                close < open < min(prev_open, prev_close and 
+                c_prev_close > c_prev_open and 
+                b_prev_open > c_prev_close))

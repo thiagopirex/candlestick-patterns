@@ -25,13 +25,7 @@ class HangingMan(CandlestickFinder):
         b_prev_high = b_prev_candle[self.high_column]
         b_prev_low = b_prev_candle[self.low_column]
 
-        # return (((high - low > 4 * (open - close)) and
-        #          ((close - low) / (.001 + high - low) >= 0.75) and
-        #          ((open - low) / (.001 + high - low) >= 0.75)) and
-        #         high[1] < open and
-        #         high[2] < open)
-
-        return (((high - low > 4 * (open - close)) and
+        return (((abs(high - low) >= 3 * abs(open - close)) and
                  ((close - low) / (.001 + high - low) >= 0.75) and
                  ((open - low) / (.001 + high - low) >= 0.75)) and
                 prev_high < open and

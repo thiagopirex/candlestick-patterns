@@ -18,15 +18,8 @@ class PiercingPattern(CandlestickFinder):
         prev_open = prev_candle[self.open_column]
         prev_high = prev_candle[self.high_column]
         prev_low = prev_candle[self.low_column]
-
-        # return (prev_close < prev_open and
-        #         abs(prev_close - prev_open) / (prev_high - prev_low) >= 0.7 and
-        #         close > open and
-        #         abs(close - open) / (high - low) >= 0.7 and
-        #         open <= prev_close and
-        #         close < prev_open and
-        #         close < ((prev_open + prev_close) / 2))
-
-        return (prev_close < prev_open and
-                open < prev_low and
+        
+        return (prev_close < prev_open and #1º is negative
+                close > open and #2º is positive
+                open < prev_close and #2º open below close 1º
                 prev_open > close > prev_close + ((prev_open - prev_close) / 2))

@@ -7,12 +7,20 @@ class Hammer(CandlestickFinder):
 
     def logic(self, idx):
         candle = self.data.iloc[idx]
+        prev_candle = self.data.iloc[idx + 1 * self.multi_coeff]
 
         close = candle[self.close_column]
         open = candle[self.open_column]
         high = candle[self.high_column]
         low = candle[self.low_column]
-
-        return (((high - low) > 3 * (open - close)) and
-                ((close - low) / (.001 + high - low) > 0.6) and
-                ((open - low) / (.001 + high - low) > 0.6))
+        
+        prev_close = prev_candle[self.close_column]
+        prev_open = prev_candle[self.open_column]
+        prev_high = prev_candle[self.high_column]
+        prev_low = prev_candle[self.low_column]
+       
+        return ((abs(high - low) >= 2.8 * abs(open - close)) and
+                ((close - low) / (.001 + high - low) > 0.65) and
+                ((open - low) / (.001 + high - low) > 0.65) and 
+                prev_close >= open)
+    

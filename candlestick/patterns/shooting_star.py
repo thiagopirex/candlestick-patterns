@@ -20,5 +20,5 @@ class ShootingStar(CandlestickFinder):
         prev_low = prev_candle[self.low_column]
 
         return (prev_open < prev_close < open and
-                high - max(open, close) >= abs(open - close) * 3 and
+                high - max(open, close) >= abs(open - close) * 2.8 and
                 min(close, open) - low <= abs(open - close))
